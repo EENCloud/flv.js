@@ -1,0 +1,20 @@
+
+<script src="../dist/flv.js"></script>
+<video id="videoElement"></video>
+<script>
+    if (flvjs.isSupported()) {
+        var videoElement = document.getElementById('videoElement');
+        var flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            cors: false,
+            //url: 'http://a597.eagleeyenetworks.com/asset/play/video.flv?c=1006c820;t=stream_1546882608896cafe0df7;e=+300000;A=c001~f792217f2113186cd49623befd892286;'
+            url: 'http://localhost:8080/aac.flv'
+	});
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
+        videoElement.onseeked = function() {
+              alert("Did seek");
+        }
+    }
+</script>
