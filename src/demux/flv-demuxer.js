@@ -953,7 +953,7 @@ class FLVDemuxer {
         let v = new DataView(arrayBuffer, dataOffset, dataSize);
 
         let packetType = v.getUint8(0);
-        let cts_unsigned = v.getUint32(0, !le) & 0x00FFFFFF;
+        let cts_unsigned = 0;//v.getUint32(0, !le) & 0x00FFFFFF;
         let cts = (cts_unsigned << 8) >> 8;  // convert to 24-bit signed int
 
         if (packetType === 0) {  // AVCDecoderConfigurationRecord
