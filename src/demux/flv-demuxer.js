@@ -960,7 +960,7 @@ class FLVDemuxer {
 
         let packetType = v.getUint8(0);
         let cts_unsigned = v.getUint32(0, !le) & 0x00FFFFFF;
-        let cts = (cts_unsigned << 8) >> 8;  // convert to 24-bit signed int
+        let cts = 0;//(cts_unsigned << 8) >> 8;  // convert to 24-bit signed int
 
         if (packetType === 0) {  // AVCDecoderConfigurationRecord
             this._parseAVCDecoderConfigurationRecord(arrayBuffer, dataOffset + 4, dataSize - 4);
@@ -1148,6 +1148,9 @@ class FLVDemuxer {
 
         let units = [], length = 0;
 
+        if (tagTimestamp < 0) {
+            tagTimestamp = 0;
+        }
         let offset = 0;
         const lengthSize = this._naluLengthSize;
         let dts = this._timestampBase + tagTimestamp;
@@ -1155,7 +1158,9 @@ class FLVDemuxer {
 
         if (!this._didParseVideoData) {
             this._didParseVideoData = true;
-            this._config.eventLogger('flv.js.parsed_first_frame', {uberTraceID: this._config.uberTraceID});
+            if (this._config.eventLogger) {
+                this._config.eventLogger('flv.js.parsed_first_frame', {uberTraceID: this._config.uberTraceID});
+            }
         }
 
         while (offset < dataSize) {
