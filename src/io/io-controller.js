@@ -413,6 +413,8 @@ class IOController {
         if (this._config.isLive) {
             // live stream: always use single normalized speed for size of stashSizeKB
             stashSizeKB = normalized;
+        } else if (this._config.enableNewStashSizeInHb) {
+            stashSizeKB = normalized * 2;
         } else {
             if (normalized < 512) {
                 stashSizeKB = normalized * 4.0 * this.element.playbackRate;

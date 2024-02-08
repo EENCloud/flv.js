@@ -116,7 +116,9 @@ function startPlayback(config, element) {
         enableStashBuffer: !isLive,
         type: 'flv',
         eventLogger: config.event_logger,
-        uberTraceID: config.uberTraceID
+        uberTraceID: config.uberTraceID,
+        enableNewStashSizeInHb: !!config.enable_new_stash_size_in_hb,
+        lazyLoadRecoverDuration: config.enable_new_stash_size_in_hb ? 4 * 60 : 30
     };
 
     if (config.options)
@@ -174,6 +176,7 @@ class MediaItem {
         this.url = null;
         this.event_logger = null;
         this.domain  = window.location.host;
+        this.enable_new_stash_size_in_hb = false;
     }
 
     setEventLogger(logger) {
