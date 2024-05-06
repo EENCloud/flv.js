@@ -128,6 +128,10 @@ function startPlayback(config, element) {
         options['eventLogger'] = config.event_logger;
     }
 
+    if (config.jwt) {
+        options['headers'] = { 'Authorization': 'bearer ' + config.jwt };
+    }
+
     let player = createPlayer(options, options);
     player.attachMediaElement(element);
     player.load();
