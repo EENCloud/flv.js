@@ -25,7 +25,7 @@ import PlayerEvents from './player/player-events.js';
 import {ErrorTypes, ErrorDetails} from './player/player-errors.js';
 import LoggingControl from './utils/logging-control.js';
 import {InvalidArgumentException} from './utils/exception.js';
-
+import FetchStreamLoader from './io/fetch-stream-loader.js';
 // here are all the interfaces
 
 // install polyfills
@@ -253,10 +253,11 @@ Object.defineProperty(flvjs, 'version', {
 
 let MediaPlayer = {};
 let EEN = {};
+const fetchStreamLoaderInstance = new FetchStreamLoader();
 
 MediaPlayer.startPlayback = startPlayback;
 MediaPlayer.MediaItem = MediaItem;
-
+MediaPlayer.abort = fetchStreamLoaderInstance.abort.bind(fetchStreamLoaderInstance);
 EEN.MediaPlayer = MediaPlayer;
 EEN.MediaPlayer.flvjs = flvjs;
 
