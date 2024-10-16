@@ -253,11 +253,9 @@ Object.defineProperty(flvjs, 'version', {
 
 let MediaPlayer = {};
 let EEN = {};
-const fetchStreamLoaderInstance = new FetchStreamLoader();
 
 MediaPlayer.startPlayback = startPlayback;
 MediaPlayer.MediaItem = MediaItem;
-MediaPlayer.abort = fetchStreamLoaderInstance.abort.bind(fetchStreamLoaderInstance);
 EEN.MediaPlayer = MediaPlayer;
 EEN.MediaPlayer.flvjs = flvjs;
 
