@@ -120,6 +120,11 @@ class FetchStreamLoader extends BaseLoader {
             params.referrerPolicy = dataSource.referrerPolicy;
         }
 
+        if (self.AbortController) {
+            this._abortController = new self.AbortController();
+            params.signal = this._abortController.signal;
+        }
+
         if (this._config.eventLogger) {
             this._config.eventLogger('flv.js.sent_video_request', {
                 uberTraceID: this._config.uberTraceID,
@@ -132,6 +137,7 @@ class FetchStreamLoader extends BaseLoader {
             if (this._requestAbort) {
                 this._requestAbort = false;
                 this._status = LoaderStatus.kIdle;
+                res.body.cancel();
                 return;
             }
             if (res.ok && (res.status >= 200 && res.status <= 299)) {
@@ -162,6 +168,10 @@ class FetchStreamLoader extends BaseLoader {
                 }
             }
         }).catch((e) => {
+            if (this._abortController && this._abortController.signal.aborted) {
+                return;
+            }
+
             this._status = LoaderStatus.kError;
             if (this._onError) {
                 this._onError(LoaderErrors.EXCEPTION, {code: -1, msg: e.message});
@@ -173,6 +183,17 @@ class FetchStreamLoader extends BaseLoader {
 
     abort() {
         this._requestAbort = true;
+
+        if (this._status !== LoaderStatus.kBuffering) {
+            if (this._abortController) {
+                try {
+                    this._abortController.abort();
+                    // eslint-disable-next-line no-empty
+                } catch (e) {
+
+                }
+            }
+        }
     }
 
     _pump(reader) {  // ReadableStreamReader
@@ -197,8 +218,10 @@ class FetchStreamLoader extends BaseLoader {
                     }
                 }
             } else {
-                if (this._requestAbort === true) {
-                    this._requestAbort = false;
+                if (this._abortController && this._abortController.signal.aborted) {
+                    this._status = LoaderStatus.kComplete;
+                    return;
+                } else if (this._requestAbort === true) {
                     this._status = LoaderStatus.kComplete;
                     return reader.cancel();
                 }
@@ -216,6 +239,10 @@ class FetchStreamLoader extends BaseLoader {
                 this._pump(reader);
             }
         }).catch((e) => {
+            if (this._abortController && this._abortController.signal.aborted) {
+                this._status = LoaderStatus.kComplete;
+                return;
+            }
             if (e.code === 11 && Browser.msedge) {  // InvalidStateError on Microsoft Edge
                 // Workaround: Edge may throw InvalidStateError after ReadableStreamReader.cancel() call
                 // Ignore the unknown exception.
