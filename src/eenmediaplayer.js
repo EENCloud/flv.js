@@ -25,6 +25,7 @@ import PlayerEvents from './player/player-events.js';
 import {ErrorTypes, ErrorDetails} from './player/player-errors.js';
 import LoggingControl from './utils/logging-control.js';
 import {InvalidArgumentException} from './utils/exception.js';
+
 // here are all the interfaces
 
 // install polyfills
@@ -255,6 +256,7 @@ let EEN = {};
 
 MediaPlayer.startPlayback = startPlayback;
 MediaPlayer.MediaItem = MediaItem;
+
 EEN.MediaPlayer = MediaPlayer;
 EEN.MediaPlayer.flvjs = flvjs;
 
