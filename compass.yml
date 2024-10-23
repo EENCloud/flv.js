@@ -1,0 +1,27 @@
+name: flv.js
+id: ari:cloud:compass:4337fc0d-aa55-4ff9-bd75-ef7117ff9381:component/4c6fdffe-fa4a-46ef-9e6f-a1aa05480c89/e43d410d-fbba-47aa-80c5-f1c0d3bfb6d4
+description: HTML5 FLV Player
+configVersion: 1
+typeId: SERVICE
+ownerId: null
+fields:
+  tier: 4
+links:
+  - name: null
+    type: REPOSITORY
+    url: https://github.com/EENCloud/flv.js
+relationships:
+  DEPENDS_ON: []
+labels:
+  - language:javascript
+  - source:github
+customFields:
+  - name: Audit status
+    type: single_select
+    value: null
+  - name: Production deployed
+    type: boolean
+    value: false
+  - name: Requires audit
+    type: boolean
+    value: false
