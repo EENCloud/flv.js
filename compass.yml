@@ -1,0 +1,24 @@
+name: Flv Js
+id: >-
+  ari:cloud:compass:4337fc0d-aa55-4ff9-bd75-ef7117ff9381:component/4c6fdffe-fa4a-46ef-9e6f-a1aa05480c89/235f9146-7d7b-4ffb-8410-267f254d94e3
+slug: flv-js
+configVersion: 1
+typeId: LIBRARY
+ownerId: ari:cloud:identity::team/02623aed-f05b-4acd-8187-7932552722de-17
+fields:
+  tier: 1
+  isMonorepoProject: false
+links:
+  - name: null
+    type: REPOSITORY
+    url: https://github.com/EENCloud/flv.js
+relationships: {}
+labels:
+  - csv-import
+customFields:
+  - name: Audit status
+    type: single_select
+    value: 4cf80f9c-76b0-43bc-b5ec-91a0414b8ed8
+  - name: Production deployed
+    type: boolean
+    value: true
