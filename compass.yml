@@ -3,7 +3,7 @@ id: ari:cloud:compass:4337fc0d-aa55-4ff9-bd75-ef7117ff9381:component/4c6fdffe-fa
 slug: flv-js
 configVersion: 1
 typeId: LIBRARY
-ownerId: ari:cloud:identity::team/02623aed-f05b-4acd-8187-7932552722de-17 # VMS Experience (320)
+ownerId: ari:cloud:identity::team/0a08bc18-4fd0-486c-a360-6854ec5f949f # VideoFanatics (323)
 links:
   - type: REPOSITORY
     url: https://github.com/EENCloud/flv.js
